@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
 var db = require('./db');
-var artistsController = require('./controller/artists');
+var usersController = require('./controller/users');
 
 var app = express();
 
@@ -15,57 +15,16 @@ app.get('/', function (req, res) {
     res.send('Hello Liubert, I am ready!');
 });
 
-app.get('/artists', artistsController.all);
+app.get('/users', usersController.all);
 
-app.get('/artists/:id', function (req, res) {
-    db.get().collection('artists').findOne({_id: ObjectID(req.params.id)}, function (err, docs) {
-        if (err) {
-            console.log(err);
-            return res.sendStatus(500);
-        }
-        res.send(docs)
-    });
-});
+app.get('/users/:id', usersController.findById);
 
-app.post('/artists', function (req, res) {
-    var solist = {
-        name: req.body.name
-    };
-    db.get().collection('artists').insert(solist, function (err, result) {
-        if (err) {
-            console.log(err);
-            return res.sendStatus(500);
-        }
-        res.send(solist);
-    })
-});
+app.post('/users', usersController.create);
 
-app.put('/artists/:id', function (req, res) {
-    db.get().collection('artists').updateOne(
-        { _id : ObjectID(req.params.id)},
-        { name : req.body.name },
-        function (err, result) {
-            if (err) {
-                console.log(err);
-                return res.sendStatus(500);
-            }
-            res.sendStatus(200);
-        }
-    )
-});
+app.put('/users/:id', usersController.update);
 
-app.delete('/artists/:id', function (req, res) {
-    db.get().collection('artists').deleteOne(
-        { _id : ObjectID(req.params.id) },
-        function (err, result) {
-            if (err) {
-                console.log(err);
-                res.sendStatus(500);
-            }
-            res.sendStatus(200);
-        }
-    )
-});
+app.delete('/users/:id', usersController.delete);
+
 
 db.connect('mongodb://localhost:27017',function (err) {
     if (err) {
