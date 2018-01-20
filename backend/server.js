@@ -1,17 +1,17 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var MongoClient = require('mongodb').MongoClient;
-var ObjectID = require('mongodb').ObjectID;
-var db = require('./db');
-var usersController = require('./controller/users');
+const express = require('express');
+const bodyParser = require('body-parser');
+const MongoClient = require('mongodb').MongoClient;
+const ObjectID = require('mongodb').ObjectID;
+const db = require('./db');
+const usersController = require('./controller/users');
 
-var app = express();
+const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
     res.send('Hello Liubert, I am ready!');
 });
 
@@ -26,7 +26,7 @@ app.put('/users/:id', usersController.update);
 app.delete('/users/:id', usersController.delete);
 
 
-db.connect('mongodb://localhost:27017',function (err) {
+db.connect('mongodb://localhost:27017', (err) => {
     if (err) {
         return console.log(err);
     }
