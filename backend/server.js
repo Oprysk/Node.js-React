@@ -6,59 +6,36 @@ const usersController = require('./controller/users');
 const session = require('express-session');
 const app = express();
 
-app.set('views', __dirname + '/views');
-app.engine('html', require('ejs').renderFile);
 
-app.use(session({secret: 'ssshhhhh'}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-var sess;
+app.use(function (req, res, next) {
 
-app.get('/', (req,res) => {
-    sess = req.session;
-//Session set when user Request our app via URL
-    if(sess.email) {
-        /*
-        * This line check Session existence.
-        * If it existed will do some action.
-        */
-        res.redirect('/admin');
-    }
-    else {
-        res.render('index.html');
-    }
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    next();
 });
 
-app.post('/login', (req,res) => {
-    sess = req.session;
-//In this we are assigning email to sess.email variable.
-//email comes from HTML page.
-    sess.email=req.body.email;
-    res.end('done');
-});
+// Use the session middleware
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}))
 
-app.get('/admin', (req,res) => {
-    sess = req.session;
-    if(sess.email) {
-        res.write('<h1>Hello '+sess.email+'</h1>');
-        res.end('<a href="/">Logout</a>');
+// Access the session as req.session
+app.get('/', function(req, res, next) {
+    if (req.session.views) {
+        console.log(req.session.id)
+        req.session.views++
+        res.setHeader('Content-Type', 'text/html')
+        res.write('<p>views: ' + req.session.views + '</p>')
+        res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
+        res.end()
     } else {
-        res.write('<h1>Please login first.</h1>');
-        res.end('<a href="/login">Login</a>');
+        req.session.views = 1
+        res.end('welcome to the session demo. refresh!')
     }
-});
-
-app.get('/logout', (req,res) => {
-    req.session.destroy(function(err) {
-        if(err) {
-            console.log(err);
-        } else {
-            res.redirect('/');
-        }
-    });
-
-});
+})
 
 
 app.get('/', (req, res) => {
