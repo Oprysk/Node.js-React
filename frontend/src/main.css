@@ -1,3 +1,21 @@
+h1{
+    margin: 0;
+}
+.dashboard-page{
+    background: #50a8e1;
+    height: 100%;
+    width: 100%;
+    padding: 0 20px;
+}
+.main-header{
+    height: 70px;
+    background: #20232a;
+    margin-bottom: 40px;
+}
+.main-logo img{
+    height: 45px;
+    margin-top: 13px;
+}
 #page-preloader {
     position: fixed;
     left: 0;
@@ -19,7 +37,7 @@
 }
 
 .view-container{
-    margin-top:20px;
+    /*margin-top:20px;*/
 }
 .cart-order{
     margin:0 auto;
