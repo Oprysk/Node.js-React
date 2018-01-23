@@ -12,28 +12,28 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(function (req, res, next) {
 
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-
-    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "*");
+    res.setHeader("Access-Control-Allow-Headers", "content-type");
 
     next();
 });
 
 // Use the session middleware
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}))
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}));
 
 // Access the session as req.session
 app.get('/', function(req, res, next) {
     if (req.session.views) {
-        console.log(req.session.id)
-        req.session.views++
-        res.setHeader('Content-Type', 'text/html')
+        console.log(req.session.id);
+        req.session.views++;
+        res.setHeader('Content-Type', 'text/html');
         res.write('<h1>'+'Hello Liubert, I am ready!'+'</h1>');
-        res.write('<b>views: ' + req.session.views + '</b>')
-        res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
+        res.write('<b>views: ' + req.session.views + '</b>');
+        res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>');
         res.end()
     } else {
-        req.session.views = 1
+        req.session.views = 1;
         res.end('welcome to the session demo. refresh!')
     }
 })

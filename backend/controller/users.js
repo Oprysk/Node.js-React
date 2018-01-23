@@ -22,8 +22,10 @@ exports.findById = function (req, res) {
 
 exports.create = function (req, res) {
     let user = {
-        name: req.body.name,
-        role: req.body.role ? req.body.role : "guest"
+        name : req.body.userName,
+        email: req.body.email,
+        pass : req.body.pass,
+        role : req.body.role ? req.body.role : "guest"
     };
     Users.create(user, (err, result) => {
         if (err) {
