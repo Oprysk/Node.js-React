@@ -28,7 +28,8 @@ app.get('/', function(req, res, next) {
         console.log(req.session.id)
         req.session.views++
         res.setHeader('Content-Type', 'text/html')
-        res.write('<p>views: ' + req.session.views + '</p>')
+        res.write('<h1>'+'Hello Liubert, I am ready!'+'</h1>');
+        res.write('<b>views: ' + req.session.views + '</b>')
         res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
         res.end()
     } else {
@@ -36,11 +37,6 @@ app.get('/', function(req, res, next) {
         res.end('welcome to the session demo. refresh!')
     }
 })
-
-
-app.get('/', (req, res) => {
-    res.send('<h1>'+'Hello Liubert, I am ready!'+'</h1>');
-});
 
 app.get('/users', usersController.all);
 
