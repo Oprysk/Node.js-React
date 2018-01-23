@@ -40,13 +40,13 @@ app.get('/', function(req, res, next) {
 
 app.get('/users', usersController.all);
 
-app.get('/users/:id', usersController.findById);
-
 app.post('/users', usersController.create);
 
 app.put('/users/:id', usersController.update);
 
 app.delete('/users/:id', usersController.delete);
+
+app.post('/login', usersController.login);
 
 
 db.connect('mongodb://localhost:27017', (err) => {

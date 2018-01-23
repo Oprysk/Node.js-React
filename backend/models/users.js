@@ -7,12 +7,6 @@ exports.all = function (cb) {
     });
 }
 
-exports.findById = function (id, cb) {
-    db.get().collection('users').findOne({ _id: ObjectID(id) }, (err, doc) => {
-            cb(err, doc);
-    });
-}
-
 exports.create = function (user, cb) {
     db.get().collection('users').insert(user, (err, result) => {
         cb(err, result)
@@ -29,4 +23,10 @@ exports.delete = function (id, cb) {
     db.get().collection('users').deleteOne({ _id : ObjectID(id) }, (err, result) => {
             cb(err, result)
     })
+}
+
+exports.login = function (user, cb) {
+    db.get().collection('users').findOne(user, (err, result) => {
+        cb(err, result);
+    });
 }
