@@ -2,8 +2,8 @@ const db = require('../db');
 const ObjectID = require('mongodb').ObjectID;
 
 exports.all = function (cb) {
-    db.get().collection('users').find().toArray((err, docs) => {
-        cb(err, docs);
+    db.get().collection('users').find().toArray((err, result) => {
+        cb(err, result);
     });
 }
 

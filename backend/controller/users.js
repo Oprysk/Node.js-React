@@ -1,28 +1,26 @@
 const Users = require('../models/users');
 
 exports.all = function (req, res) {
-    Users.all( (err, docs) => {
+    Users.all( (err, users) => {
         if (err) {
             console.log(err);
             res.sendStatus(500);
         }
-        res.send(docs);
+        users.forEach(function (user) {
+            delete user.pass
+        });
+        res.send(users);
     })
 }
 
 exports.create = function (req, res) {
-    let user = {
-        name : req.body.userName,
-        email: req.body.email,
-        pass : req.body.pass,
-        role : req.body.role ? req.body.role : "guest"
-    };
-    Users.create(user, (err, result) => {
+    Users.create(req.body, (err, result) => {
         if (err) {
             console.log(err);
             return res.sendStatus(500);
         }
-        res.send(user)
+        delete result.ops[0].pass
+        res.send(result.ops[0])
     })
 }
 
