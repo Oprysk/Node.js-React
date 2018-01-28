@@ -19,8 +19,8 @@ exports.update = function (id, newData, cb) {
     })
 }
 
-exports.delete = function (id, cb) {
-    db.get().collection('users').deleteOne({ _id : ObjectID(id) }, (err, result) => {
+exports.delete = function (usersDelete, cb) {
+    db.get().collection('users').remove({'_id':{'$in': usersDelete}}, (err, result) => {
             cb(err, result)
     })
 }

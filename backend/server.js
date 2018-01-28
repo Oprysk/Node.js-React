@@ -20,7 +20,13 @@ app.use(function (req, res, next) {
 });
 
 // Use the session middleware
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}));
+app.use(session({
+    secret: 'keyboard cat',
+    cookie: { maxAge: 600000 },
+    proxy: true,
+    resave: true,
+    saveUninitialized: true
+}));
 
 // Access the session as req.session
 app.get('/', function(req, res, next) {
@@ -36,7 +42,7 @@ app.get('/', function(req, res, next) {
         req.session.views = 1;
         res.end('welcome to the session demo. refresh!')
     }
-})
+});
 
 app.get('/users', usersController.all);
 

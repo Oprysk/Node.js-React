@@ -1,4 +1,5 @@
 const Users = require('../models/users');
+const ObjectID = require('mongodb').ObjectID;
 
 exports.all = function (req, res) {
     Users.all( (err, users) => {
@@ -19,7 +20,7 @@ exports.create = function (req, res) {
             console.log(err);
             return res.sendStatus(500);
         }
-        delete result.ops[0].pass
+        delete result.ops[0].pass;
         res.send(result.ops[0])
     })
 }
@@ -35,7 +36,11 @@ exports.update = function (req, res) {
 }
 
 exports.delete = function (req, res) {
-    Users.delete(req.params.id, (err, result) => {
+    let usersDelete = [];
+    req.body.forEach(function(item){
+        usersDelete.push(new ObjectID(item._id));
+    });
+    Users.delete(usersDelete, (err, result) => {
         if (err) {
             console.log(err);
             res.sendStatus(500);
@@ -50,7 +55,7 @@ exports.login = function (req, res) {
             console.log(err);
             res.sendStatus(500);
         }
-        delete result.pass
+        delete result.pass;
         res.send(result);
-    })
+    });
 }
