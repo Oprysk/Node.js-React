@@ -1,5 +1,4 @@
 const Users = require('../models/users');
-const ObjectID = require('mongodb').ObjectID;
 
 exports.all = function (req, res) {
     Users.all( (err, users) => {
@@ -36,11 +35,7 @@ exports.update = function (req, res) {
 }
 
 exports.delete = function (req, res) {
-    let usersDelete = [];
-    req.body.forEach(function(item){
-        usersDelete.push(new ObjectID(item._id));
-    });
-    Users.delete(usersDelete, (err, result) => {
+    Users.delete(req.body.id, (err, result) => {
         if (err) {
             console.log(err);
             res.sendStatus(500);

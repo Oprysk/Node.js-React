@@ -50,7 +50,7 @@ app.post('/users', usersController.create);
 
 app.put('/users/:id', usersController.update);
 
-app.delete('/users/:id', usersController.delete);
+app.delete('/deleteUser', usersController.delete);
 
 app.post('/login', usersController.login);
 
