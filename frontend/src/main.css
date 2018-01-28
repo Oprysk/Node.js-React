@@ -555,3 +555,21 @@ footer {
     -ms-transform: translateY(0px);
     transform: translateY(0px);
 }
+
+.table-font th{
+    font-size: 20px !important;
+    text-align: center;
+}
+.table-font td{
+    font-size: 18px !important;
+    text-align: center;
+}
+.dashboard-page input{
+     font-size: 16px !important;
+ }
+.dashboard-page label{
+    font-size: 14px !important;
+}
+.dashboard-page button{
+    font-size: 16px !important;
+}
