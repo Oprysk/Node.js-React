@@ -9,7 +9,16 @@ h1 {
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
-
+.animYes{
+  width: calc(100% - 240px) !important;
+  transition: width 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms,margin 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
+  margin-left: 240px;
+}
+.animNo{
+  width: 100% !important;
+  transition: width 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms,margin 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
+  margin-left: 240px;
+}
 .dashboard-page {
   background: #50a8e1;
   height: 100%;
