@@ -21,14 +21,17 @@ const store = createStore(reducers, composeWithDevTools(
 
 const history = syncHistoryWithStore(browserHistory, store);
 
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Route component={Layout}>
-        <Route store={store} path='/' component={Dashboard}/>
+        <Route path='/' component={Dashboard}/>
         <Route path='/phones' component={Phones}/>
         <Route path='/categories/:id' component={Phones}/>
       </Route>
+
+
       <Route path='/phones/:id' component={Phone}/>
       <Route path='/basket' component={Basket} />
     </Router>
