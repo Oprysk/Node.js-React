@@ -50,7 +50,11 @@ exports.login = function (req, res) {
             console.log(err);
             res.sendStatus(500);
         }
-        delete result.pass;
-        res.send(result);
+        if (result == null){
+            res.sendStatus(418)
+        } else {
+            delete result.pass;
+            res.send(result);
+        }
     });
 }

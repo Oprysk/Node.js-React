@@ -1,5 +1,6 @@
 const db = require('../db');
 const ObjectID = require('mongodb').ObjectID;
+const uuid = require('uuid');
 
 exports.all = function (cb) {
     db.get().collection('users').find().toArray((err, result) => {
@@ -27,6 +28,13 @@ exports.delete = function (id, cb) {
 
 exports.login = function (user, cb) {
     db.get().collection('users').findOne(user, (err, result) => {
-        cb(err, result);
+        if (result !== null) {
+            let token = uuid.v4();
+            result.token = token;
+            cb(err, result);
+            db.get().collection('users').updateOne({ _id : ObjectID(result._id) }, { $set : { token : token }});
+        } else {
+            cb(err, result);
+        }
     });
 }
