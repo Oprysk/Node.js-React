@@ -7,6 +7,15 @@ h1{
     -moz-animation:spin 4s linear infinite;
     animation:spin 4s linear infinite;
 }
+
+.page-center-layout{
+    height: 100vh;
+    min-height: 100%;
+    background: white;
+    text-align: center;
+    margin: 10%;
+}
+
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
