@@ -28,22 +28,6 @@ app.use(session({
     saveUninitialized: true
 }));
 
-// Access the session as req.session
-app.get('/', function(req, res, next) {
-    if (req.session.views) {
-        console.log(req.session.id);
-        req.session.views++;
-        res.setHeader('Content-Type', 'text/html');
-        res.write('<h1>'+'Hello Liubert, I am ready!'+'</h1>');
-        res.write('<b>views: ' + req.session.views + '</b>');
-        res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>');
-        res.end()
-    } else {
-        req.session.views = 1;
-        res.end('welcome to the session demo. refresh!')
-    }
-});
-
 app.get('/users', usersController.all);
 
 app.post('/users', usersController.create);
