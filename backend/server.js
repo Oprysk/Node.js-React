@@ -38,6 +38,8 @@ app.delete('/deleteUser', usersController.delete);
 
 app.post('/login', usersController.login);
 
+app.post('/logout', usersController.logout);
+
 
 db.connect('mongodb://localhost:27017', (err) => {
     if (err) {

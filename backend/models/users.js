@@ -26,10 +26,22 @@ exports.login = async function (user) {
     let result = await db.get().collection('users').findOne(user);
     if (result !== null) {
         let token = uuid.v4();
-        result.token = token;
-        db.get().collection('users').updateOne({ _id : ObjectID(result._id) }, { $set : { token : token }});
-        return result;
+        await db.get().collection('users').updateOne({ _id : ObjectID(result._id) }, { $set : { token : token }});
+
+        delete result.pass;
+        delete result.token;
+        let userSession = {
+            user: result,
+            isLogin : true,
+            token: token
+        }
+        return userSession;
     } else {
         return result;
     }
+}
+
+exports.logout = async function (token) {
+    let result = await db.get().collection('users').deleteOne(token);
+    return result;
 }

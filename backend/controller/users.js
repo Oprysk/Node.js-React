@@ -1,8 +1,10 @@
 const Users = require('../models/users');
 
 exports.all = async function (req, res) {
+    console.log(req.headers)
     try {
        let data = await Users.all();
+       delete data.pass;
        res.send(data)
     } catch (err) {
         console.log(err);
@@ -47,9 +49,18 @@ exports.login = async function (req, res) {
         if (data == null) {
             res.sendStatus(404);
         } else {
-            delete data.pass;
             res.send(data);
         }
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+}
+
+exports.logout = async function (req, res) {
+    try {
+        let data = await Users.logout(req.headers.sessionToken);
+        res.send(data);
     } catch (err) {
         console.log(err);
         res.sendStatus(500);
