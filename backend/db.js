@@ -4,20 +4,18 @@ const state = {
     db : null
 };
 
-exports.connect = function (url, done) {
+exports.connect = async function (url) {
     if (state.db) {
-        return done();
+        return;
     }
-
-    MongoClient.connect(url, (err, db) => {
-        if (err) {
-            return done(err);
-        }
+    try {
+        let db = await MongoClient.connect(url);
         state.db = db;
-        done();
-    })
+    } catch (err) {
+        return err;
+    }
 };
 
 exports.get = function () {
     return state.db;
-}
+};

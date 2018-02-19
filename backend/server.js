@@ -40,12 +40,11 @@ app.post('/login', usersController.login);
 
 app.post('/logout', usersController.logout);
 
-
-db.connect('mongodb://localhost:27017', (err) => {
-    if (err) {
-        return console.log(err);
-    }
+try {
+    db.connect('mongodb://localhost:27017');
     app.listen(3050, function () {
         console.log('API app started');
     });
-})
+} catch (err) {
+    console.log(err);
+}
