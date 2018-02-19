@@ -41,7 +41,7 @@ exports.login = async function (user) {
     }
 }
 
-exports.logout = async function (token) {
-    let result = await db.get().collection('users').deleteOne(token);
+exports.logout = async function (user) {
+    let result = await db.get().collection('users').updateOne({ _id : ObjectID(user._id) }, { $set : { token : '' }});
     return result;
 }

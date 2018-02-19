@@ -59,7 +59,7 @@ exports.login = async function (req, res) {
 
 exports.logout = async function (req, res) {
     try {
-        let data = await Users.logout(req.headers.sessionToken);
+        let data = await Users.logout(req.params.id);
         res.send(data);
     } catch (err) {
         console.log(err);
