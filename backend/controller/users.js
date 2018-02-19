@@ -1,60 +1,57 @@
 const Users = require('../models/users');
 
-exports.all = function (req, res) {
-    Users.all( (err, users) => {
-        if (err) {
-            console.log(err);
-            res.sendStatus(500);
-        }
-        users.forEach(function (user) {
-            delete user.pass
-        });
-        res.send(users);
-    })
+exports.all = async function (req, res) {
+    try {
+       let data = await Users.all();
+       res.send(data)
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
 }
 
-exports.create = function (req, res) {
-    Users.create(req.body, (err, result) => {
-        if (err) {
-            console.log(err);
-            return res.sendStatus(500);
-        }
-        delete result.ops[0].pass;
-        res.send(result.ops[0])
-    })
+exports.create = async function (req, res) {
+    try {
+        let data = await Users.create(req.body);
+        delete data.ops[0].pass;
+        res.send(data.ops[0])
+    } catch (err) {
+        console.log(err);
+        return res.sendStatus(500);
+    }
 }
 
-exports.update = function (req, res) {
-    Users.update(req.params.id, { name : req.body.name }, (err, result) => {
-        if (err) {
-            console.log(err);
-            return res.sendStatus(500);
-        }
+exports.update = async function (req, res) {
+    try {
+        await Users.update(req.params.id, { name : req.body.name });
         res.sendStatus(200);
-    })
+    } catch (err) {
+        console.log(err);
+        return res.sendStatus(500);
+    }
 }
 
-exports.delete = function (req, res) {
-    Users.delete(req.body.id, (err, result) => {
-        if (err) {
-            console.log(err);
-            res.sendStatus(500);
-        }
+exports.delete = async function (req, res) {
+    try {
+        await Users.delete(req.body.id);
         res.sendStatus(200);
-    })
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
 }
 
-exports.login = function (req, res) {
-    Users.login(req.body, (err, result) => {
-        if (err) {
-            console.log(err);
-            res.sendStatus(500);
-        }
-        if (result == null){
-            res.sendStatus(418)
+exports.login = async function (req, res) {
+    try {
+        let data = await Users.login(req.body);
+        if (data == null) {
+            res.sendStatus(404);
         } else {
-            delete result.pass;
-            res.send(result);
+            delete data.pass;
+            res.send(data);
         }
-    });
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
 }
