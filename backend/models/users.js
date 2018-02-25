@@ -45,3 +45,8 @@ exports.logout = async function (user) {
     let result = await db.get().collection('users').updateOne({ _id : ObjectID(user._id) }, { $set : { token : '' }});
     return result;
 }
+
+exports.islogin = async function (token) {
+    let result = await db.get().collection('users').findOne(token);
+    return result;
+}

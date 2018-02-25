@@ -41,9 +41,14 @@ app.post('/login', usersController.login);
 app.post('/logout', usersController.logout);
 
 try {
-    db.connect('mongodb://localhost:27017');
-    app.listen(3050, function () {
-        console.log('API app started');
+    db.connect('mongodb://localhost:27017').then((err) =>{
+        if (err) {
+            console.log(err)
+        } else {
+            app.listen(3050, function () {
+                console.log('API app started');
+            });
+        }
     });
 } catch (err) {
     console.log(err);

@@ -6,7 +6,7 @@ const state = {
 
 exports.connect = async function (url) {
     if (state.db) {
-        return;
+        return true;
     }
     try {
         let db = await MongoClient.connect(url);
