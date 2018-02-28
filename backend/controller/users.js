@@ -1,14 +1,25 @@
 const Users = require('../models/users');
 
 exports.all = async function (req, res) {
-    console.log(req.headers)
-    try {
-       let data = await Users.all();
-       delete data.pass;
-       res.send(data)
-    } catch (err) {
-        console.log(err);
-        res.sendStatus(500);
+    if (req.headers.token !== undefined) {
+        await Users.islogin({token: req.headers.token}).then(async (result) => {
+            if (result) {
+                try {
+                    let data = await Users.all();
+                    delete data.pass;
+                    res.send(data)
+                } catch (err) {
+                    console.log(err);
+                    res.sendStatus(500);
+                }
+            } else {
+                res.status(404);
+                res.send({islogin: false});
+            }
+        });
+    } else {
+        res.status(400);
+        res.send({islogin: false});
     }
 }
 
