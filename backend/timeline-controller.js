@@ -1,4 +1,5 @@
 const Twitter = require('twitter');
+
 const client = new Twitter({
     consumer_key: 'O6LITg07IGekJDFaDlIWhDV7V',
     consumer_secret: 'lSYxe4yTtENzrROLcMRcqJpgtfJTW4AXzhiHj61LbCAri8tzOc',
