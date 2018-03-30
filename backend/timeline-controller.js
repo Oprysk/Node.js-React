@@ -10,7 +10,7 @@ const client = new Twitter({
 
 exports.getUserTweets = async function (req, res) {
     try {
-        let data = await client.get('statuses/user_timeline' ,req.body);
+        let data = await client.get('statuses/user_timeline' ,req.query);
         res.send(data);
     } catch (err) {
         console.log(err);
