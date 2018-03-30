@@ -31,13 +31,13 @@ ReactDOM.render(
         <Route path='/' component={Login} />
       <Route component={Layout}>
         <Route path='/dashboard' component={Dashboard}/>
-        <Route path='/phones' component={Phones}/>
-        <Route path='/categories/:id' component={Phones}/>
+        {/*<Route path='/phones' component={Phones}/>*/}
+        {/*<Route path='/categories/:id' component={Phones}/>*/}
       </Route>
 
         {/*<Route path='/login' component={Login}/>*/}
-      <Route path='/phones/:id' component={Phone}/>
-      <Route path='/basket' component={Basket} />
+      {/*<Route path='/phones/:id' component={Phone}/>*/}
+      {/*<Route path='/basket' component={Basket} />*/}
 
 
         <Route path='*' component={NotFound} />
