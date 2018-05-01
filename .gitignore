@@ -1,7 +1,13 @@
-*.log
-.idea/
-.cache/
+# Node build artifacts
+node_modules
+npm-debug.log
 
-# Ignore docs files
-styles/.sass-cache
-styles/.sass-cache/*
+# Local development
+*.env
+*.dev
+.DS_Store
+.idea
+
+# Docker
+Dockerfile
+docker-compose.yml
